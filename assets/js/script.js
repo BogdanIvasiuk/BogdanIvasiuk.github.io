@@ -2,31 +2,12 @@
 
 // Carica i moduli statici all'avvio
 document.addEventListener("DOMContentLoaded", function() {
-  // Load static modules
   loadModule('sidebar', 'modules/sidebar.html');
   loadModule('navbar', 'modules/navbar.html');
 
-  // Load the default content
+  // Carica il contenuto predefinito
   loadModule('content', 'modules/about.html');
 });
-
-// Funzione per caricare un modulo da un URL e inserirlo in un elemento specifico
-function loadModule(elementId, url) {
-  fetch(url)
-    .then(response => response.text())
-    .then(data => document.getElementById(elementId).innerHTML = data)
-    .catch(error => console.error('Error loading module:', error));
-}
-
-// Gestisce il clic sui link della navbar per caricare il modulo corrispondente e aggiornare lo stato attivo del link
-document.addEventListener('click', function(event) {
-  if (event.target.dataset.navLink) {
-    const page = event.target.dataset.navLink;
-    loadModule('content', `modules/${page}.html`);
-    updateActiveNavLink(event.target);
-  }
-});
-
 // Aggiorna lo stato attivo del link nella navbar
 function updateActiveNavLink(activeLink) {
   const navLinks = document.querySelectorAll("[data-nav-link]");
@@ -38,35 +19,56 @@ function updateActiveNavLink(activeLink) {
     }
   });
 }
+// Funzione per caricare un modulo da un URL e inserirlo in un elemento specifico
+function loadModule(elementId, url) {
+  fetch(url)
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById(elementId).innerHTML = data;
+    })
+    .catch(error => console.error('Error loading module:', error));
+}
 
-// Element toggle function
+// Gestisce il clic sui link della navbar per caricare il modulo corrispondente e aggiornare lo stato attivo del link
+document.addEventListener('click', function(event) {
+  if (event.target.dataset.navLink) {
+    const page = event.target.dataset.navLink;
+    loadModule('content', `modules/${page}.html`);
+    updateActiveNavLink(event.target);
+    event.preventDefault();
+  }
+});
+
+
+
+// Funzione toggle degli elementi
 const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
 
-// Sidebar variables
+// Variabili della sidebar
 const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
-// Sidebar toggle functionality for mobile
+// Funzionalità toggle della sidebar per mobile
 sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
 
-// Testimonials variables
+// Variabili dei testimonials
 const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
 const modalContainer = document.querySelector("[data-modal-container]");
 const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
 const overlay = document.querySelector("[data-overlay]");
 
-// Modal variable
+// Variabili del modal
 const modalImg = document.querySelector("[data-modal-img]");
 const modalTitle = document.querySelector("[data-modal-title]");
 const modalText = document.querySelector("[data-modal-text]");
 
-// Modal toggle function
+// Funzione toggle del modal
 const testimonialsModalFunc = function () {
   modalContainer.classList.toggle("active");
   overlay.classList.toggle("active");
 }
 
-// Add click event to all modal items
+// Aggiungi evento click a tutti gli elementi del modal
 testimonialsItem.forEach(item => {
   item.addEventListener("click", function () {
     modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
@@ -77,11 +79,11 @@ testimonialsItem.forEach(item => {
   });
 });
 
-// Add click event to modal close button
+// Aggiungi evento click al bottone di chiusura del modal
 modalCloseBtn.addEventListener("click", testimonialsModalFunc);
 overlay.addEventListener("click", testimonialsModalFunc);
 
-// Custom select variables
+// Variabili del select personalizzato
 const select = document.querySelector("[data-select]");
 const selectItems = document.querySelectorAll("[data-select-item]");
 const selectValue = document.querySelector("[data-selecct-value]");
@@ -89,7 +91,7 @@ const filterBtn = document.querySelectorAll("[data-filter-btn]");
 
 select.addEventListener("click", function () { elementToggleFunc(this); });
 
-// Add event in all select items
+// Aggiungi evento a tutti gli elementi del select
 selectItems.forEach(item => {
   item.addEventListener("click", function () {
     let selectedValue = this.innerText.toLowerCase();
@@ -99,7 +101,7 @@ selectItems.forEach(item => {
   });
 });
 
-// Filter variables
+// Variabili del filtro
 const filterItems = document.querySelectorAll("[data-filter-item]");
 
 const filterFunc = function (selectedValue) {
@@ -114,7 +116,7 @@ const filterFunc = function (selectedValue) {
   });
 }
 
-// Add event in all filter button items for large screen
+// Aggiungi evento a tutti i bottoni del filtro per schermi grandi
 let lastClickedBtn = filterBtn[0];
 
 filterBtn.forEach(btn => {
@@ -128,12 +130,12 @@ filterBtn.forEach(btn => {
   });
 });
 
-// Contact form variables
+// Variabili del form di contatto
 const form = document.querySelector("[data-form]");
 const formInputs = document.querySelectorAll("[data-form-input]");
 const formBtn = document.querySelector("[data-form-btn]");
 
-// Add event to all form input field
+// Aggiungi evento a tutti i campi di input del form
 formInputs.forEach(input => {
   input.addEventListener("input", function () {
     if (form.checkValidity()) {
@@ -144,14 +146,14 @@ formInputs.forEach(input => {
   });
 });
 
-// Page navigation variables
+// Variabili di navigazione della pagina
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
-// Add event to all nav link
+// Aggiungi evento a tutti i link di navigazione
 navigationLinks.forEach(link => {
-  link.addEventListener("click", function () {
-    const targetPage = this.innerHTML.toLowerCase();
+  link.addEventListener("click", function (event) {
+    const targetPage = this.dataset.navLink;
     pages.forEach(page => {
       if (targetPage === page.dataset.page) {
         page.classList.add("active");
@@ -159,8 +161,9 @@ navigationLinks.forEach(link => {
         window.scrollTo(0, 0);
       } else {
         page.classList.remove("active");
-        navigationLinks.forEach(navLink => navLink.classList.remove("active"));
       }
     });
+    updateActiveNavLink(this);
+    event.preventDefault();
   });
 });
