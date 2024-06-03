@@ -1,0 +1,144 @@
+/*-----------------------------------*\
+  #MAIN CONTENT
+\*-----------------------------------*/
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 920px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
+.main-content { padding-top: 30px; }
+
+.section { margin-bottom: 30px; }
+
+.blog-card {
+  display: flex;
+  gap: 15px;
+  background: var(--eerie-black-2);
+  border-radius: 14px;
+  box-shadow: var(--shadow-2);
+  overflow: hidden;
+  transition: var(--transition-2);
+}
+
+.blog-card img { width: 100%; }
+
+.blog-card:hover { transform: translateY(-10px); }
+
+.blog-card .content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.blog-card .content .title { font-size: var(--fs-4); }
+
+.blog-card .content .date {
+  font-size: var(--fs-7);
+  color: var(--light-gray);
+}
+
+.blog-card .content .description {
+  font-size: var(--fs-6);
+  color: var(--light-gray-70);
+}
+
+.blog-card .content .read-more { color: var(--orange-yellow-crayola); }
+
+.blog-card .content .read-more:hover { color: var(--vegas-gold); }
+
+/*-----------------------------------*\
+  #MODALS
+\*-----------------------------------*/
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--onyx);
+  opacity: 0.8;
+  z-index: 10;
+}
+
+.modal { display: none; }
+
+.modal.active { display: block; }
+
+.modal .modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 500px;
+  background: var(--eerie-black-2);
+  border-radius: 14px;
+  padding: 30px;
+  box-shadow: var(--shadow-2);
+  transform: translate(-50%, -50%);
+  z-index: 11;
+}
+
+.modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal .modal-header .title {
+  font-size: var(--fs-4);
+  color: var(--white-2);
+}
+
+.modal .modal-header .close {
+  font-size: var(--fs-3);
+  color: var(--white-2);
+  cursor: pointer;
+}
+
+.modal .modal-body {
+  font-size: var(--fs-6);
+  color: var(--light-gray);
+}
+
+.modal .modal-body .form-group {
+  margin-bottom: 15px;
+}
+
+.modal .modal-body .form-group label {
+  font-size: var(--fs-5);
+  color: var(--white-2);
+  margin-bottom: 5px;
+}
+
+.modal .modal-body .form-group input {
+  padding: 10px;
+  border: 1px solid var(--jet);
+  border-radius: 8px;
+  background: var(--onyx);
+  color: var(--white-2);
+}
+
+.modal .modal-body .form-group textarea {
+  padding: 10px;
+  border: 1px solid var(--jet);
+  border-radius: 8px;
+  background: var(--onyx);
+  color: var(--white-2);
+  resize: vertical;
+  min-height: 150px;
+}

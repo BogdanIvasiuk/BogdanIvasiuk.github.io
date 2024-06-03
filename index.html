@@ -6,8 +6,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bogdan Ivasiuk</title>
+
+  <!--
+    - favicon
+  -->
   <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
+
+  <!--
+    - custom css link
+  -->
   <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!--
+    - google font link
+  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -15,16 +27,31 @@
 
 <body>
   <main>
-    <div id="sidebar"></div>
+    <!-- Sidebar will be loaded here -->
+    <aside data-sidebar></aside>
+    <!-- Main content will be loaded here -->
     <div class="main-content">
-      <div id="navbar"></div>
-      <div id="content"></div> <!-- Contenuto dinamico caricato qui -->
+      <nav data-navbar></nav>
+      <div data-page="about" class="page"></div>
+      <div data-page="resume" class="page"></div>
+      <div data-page="portfolio" class="page"></div>
+      <div data-page="blog" class="page"></div>
+      <div data-page="contact" class="page"></div>
     </div>
+
   </main>
 
-  <script src="./assets/js/script.js"></script>
+  <!--
+    - custom js link
+  -->
+  <script type="module"  src="./assets/js/script.js"></script>
+
+  <!--
+    - ionicon link
+  -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 </body>
 
 </html>
